@@ -24,16 +24,22 @@ RUN apk add --update \
     transmission-daemon \
     && rm -rf /var/cache/apk/*
 
-# user with access to media files and config
-RUN adduser -D -u ${appGroup} ${appUser}
-
-# switch to user media
-USER ${appUser}
-
 # create directories
 RUN mkdir -p /downloads \
   && mkdir -p /incomplete \
   && mkdir -p /etc/transmission-daemon
+
+# user with access to media files and config
+RUN adduser -D -u ${appGroup} ${appUser}
+
+# set owner
+RUN chown ${appUser} /start.sh /downloads /incomplete /etc/transmission-daemon
+
+# permissions
+RUN chmod u+x /start.sh
+
+# switch to user media
+USER ${appUser}
 
 # start application
 CMD ["/start.sh"]
