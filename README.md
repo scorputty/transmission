@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/scorputty/transmission.svg?branch=master)](https://travis-ci.org/scorputty/transmission) [![](https://images.microbadger.com/badges/image/cryptout/transmission.svg)](https://microbadger.com/images/cryptout/transmission "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/cryptout/transmission.svg)](https://microbadger.com/images/cryptout/transmission "Get your own version badge on microbadger.com")
 
-# Docker transmission (Alpine)
+# Docker Transmission (Alpine)
 
 This is a Dockerfile to set up "Transmission" - (https://transmissionbt.com/).
 
