@@ -13,12 +13,12 @@ export VOL_INCOMPLETE_DOWNLOADS="/Volumes/shares/docker/data/transmission/incomp
 export LOCAL_PORT1="9091"
 
 docker run -d -h $(hostname) \
-  -v ${VOL_DOWNLOADS}:/downloads \
-  -v ${VOL_INCOMPLETE_DOWNLOADS}:/incomplete-downloads \
   -p ${LOCAL_PORT1}:9091 \
   -p 51413:51413 \
   -p 51413:51413/udp \
-  -e TZ=Europe/Amsterdam \
+  -v ${VOL_DOWNLOADS}:/downloads \
+  -v ${VOL_INCOMPLETE_DOWNLOADS}:/incomplete \
+  -v /etc/localtime:/etc/timezone \
   -e PUID=1000 \
   -e PGID=1000 \
   --name=transmission --restart=always cryptout/transmission
