@@ -14,7 +14,6 @@ RUN mkdir -p /downloads \
 COPY src/ .
 
 VOLUME ["/downloads"]
-VOLUME ["/etc/transmission-daemon"]
 VOLUME ["/incomplete"]
 
 EXPOSE 9091 51413/tcp 51413/udp

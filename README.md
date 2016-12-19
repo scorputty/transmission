@@ -8,18 +8,16 @@ This is a Dockerfile to set up "Transmission" - (https://transmissionbt.com/).
 The built image is also hosted at Docker Hub - (https://hub.docker.com/r/cryptout/transmission/).
 If you don't want to customize the container you can run it directly by typing the following commands.
 ```sh
-export VOL_CONFIG="/Volumes/shares/docker/config/transmission"
 export VOL_DOWNLOADS="/Volumes/shares/docker/data/transmission/downloads"
 export VOL_INCOMPLETE_DOWNLOADS="/Volumes/shares/docker/data/transmission/incomplete"
 export LOCAL_PORT1="9091"
 
 docker run -d -h $(hostname) \
-  -v ${VOL_CONFIG}:/config \
   -v ${VOL_DOWNLOADS}:/downloads \
   -v ${VOL_INCOMPLETE_DOWNLOADS}:/incomplete-downloads \
   -p ${LOCAL_PORT1}:9091 \
   -p 51413:51413 \
-  -p 51413/udp:51413/udp \
+  -p 51413:51413/udp \
   -e TZ=Europe/Amsterdam \
   -e PUID=1000 \
   -e PGID=1000 \
@@ -62,6 +60,7 @@ Or replace localhost with your target IP. Login with admin/transmission.
 ## Info
 * Shell access whilst the container is running: `docker exec -it transmission /bin/sh`
 * To monitor the logs of the container in realtime: `docker logs -f transmission`
+* Change transmission-daemon config: `docker run -ti cryptout/transmission vi /etc/transmission-daemon/settings.json`
 
 # Notes
 I'm still learning Docker and use these private (pet)projects to develop my skills.
