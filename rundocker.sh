@@ -7,12 +7,12 @@ VOL_INCOMPLETE_DOWNLOADS="/Volumes/shares/docker/data/transmission/incomplete"
 
 test -d ${VOL_CONFIG} || VOL_CONFIG="${PWD}${VOL_CONFIG}" && mkdir -p ${VOL_CONFIG}
 test -d ${VOL_DOWNLOADS} || VOL_DOWNLOADS="${PWD}${VOL_DOWNLOADS}" && mkdir -p ${VOL_DOWNLOADS}
-test -d ${VOL_INCOMPLETE_DOWNLOADS} || VOL_DOWNLOADS="${PWD}${VOL_INCOMPLETE_DOWNLOADS}" && mkdir -p ${VOL_INCOMPLETE_DOWNLOADS}
+test -d ${VOL_INCOMPLETE_DOWNLOADS} || VOL_INCOMPLETE_DOWNLOADS="${PWD}${VOL_INCOMPLETE_DOWNLOADS}" && mkdir -p ${VOL_INCOMPLETE_DOWNLOADS}
 
 docker run -d -h $(hostname) \
     -p 9091:9091 \
-    -p 51314:51314 \
-    -p 51314/udp:51314/udp \
+    -p 51413:51413 \
+    -p 51413:51413/udp \
     -v ${VOL_DOWNLOADS}:/downloads \
     -v ${VOL_INCOMPLETE_DOWNLOADS}:/incomplete \
     -v ${VOL_CONFIG}:/etc/transmission-daemon \
