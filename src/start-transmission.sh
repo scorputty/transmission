@@ -6,12 +6,12 @@ SETTINGS=/etc/transmission-daemon/settings.json
 if [[ ! -f ${SETTINGS}.bak ]]; then
 	# Checks for USERNAME variable
 	if [ -z "$USERNAME" ]; then
-	  echo >&2 'Please set an USERNAME variable (ie.: -e USERNAME=john).'
+	  echo >&2 'Please set an USERNAME variable (ie.: -e USERNAME=admin).'
 	  exit 1
 	fi
 	# Checks for PASSWORD variable
 	if [ -z "$PASSWORD" ]; then
-	  echo >&2 'Please set a PASSWORD variable (ie.: -e PASSWORD=hackme).'
+	  echo >&2 'Please set a PASSWORD variable (ie.: -e PASSWORD=transmission).'
 	  exit 1
 	fi
 	# Modify settings.json
