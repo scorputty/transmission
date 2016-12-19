@@ -3,6 +3,7 @@
 # edit for your situation
 VOL_CONFIG="/Volumes/shares/docker/config/transmission"
 VOL_DOWNLOADS="/Volumes/shares/docker/data/transmission/downloads"
+VOL_INCOMPLETE_DOWNLOADS="/Volumes/shares/docker/data/transmission/incomplete"
 
 test -d ${VOL_CONFIG} || VOL_CONFIG="${PWD}${VOL_CONFIG}" && mkdir -p ${VOL_CONFIG}
 test -d ${VOL_DOWNLOADS} || VOL_DOWNLOADS="${PWD}${VOL_DOWNLOADS}" && mkdir -p ${VOL_DOWNLOADS}
