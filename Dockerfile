@@ -33,7 +33,7 @@ RUN mkdir -p /downloads \
 RUN adduser -D -u ${appGroup} ${appUser}
 
 # set owner
-RUN chown ${appUser} start.sh /downloads /incomplete /etc/transmission-daemon
+RUN chown -R ${appUser}:${appGroup} /start.sh /downloads /incomplete /etc/transmission-daemon
 
 # permissions
 RUN chmod u+x /start.sh
