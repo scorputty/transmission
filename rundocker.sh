@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # edit for your situation
-VOL_CONFIG="/Volumes/shares/docker/config/transmission"
 VOL_DOWNLOADS="/Volumes/shares/docker/data/transmission/downloads"
 VOL_INCOMPLETE_DOWNLOADS="/Volumes/shares/docker/data/transmission/incomplete"
 
@@ -14,7 +13,7 @@ docker run -d -h $(hostname) \
     -p 51413:51413/udp \
     -v ${VOL_DOWNLOADS}:/downloads \
     -v ${VOL_INCOMPLETE_DOWNLOADS}:/incomplete \
-    -e TZ=Europe/Amsterdam \
+    -v /etc/localtime:/etc/timezone \
     -e PUID=1000 \
     -e PGID=1000 \
     --name=transmission --restart=always cryptout/transmission
