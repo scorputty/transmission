@@ -3,9 +3,11 @@
 # edit for your situation
 VOL_DOWNLOADS="/Volumes/shares/docker/data/transmission/downloads"
 VOL_INCOMPLETE_DOWNLOADS="/Volumes/shares/docker/data/transmission/incomplete"
+VOL_MEDIA="/Volumes/shares/docker/media"
 
 test -d ${VOL_DOWNLOADS} || VOL_DOWNLOADS="${PWD}${VOL_DOWNLOADS}" && mkdir -p ${VOL_DOWNLOADS}
 test -d ${VOL_INCOMPLETE_DOWNLOADS} || VOL_INCOMPLETE_DOWNLOADS="${PWD}${VOL_INCOMPLETE_DOWNLOADS}" && mkdir -p ${VOL_INCOMPLETE_DOWNLOADS}
+test -d ${VOL_MEDIA} || VOL_MEDIA="${PWD}${VOL_MEDIA}" && mkdir -p ${VOL_MEDIA}
 
 docker run -d -h $(hostname) \
     -p 9091:9091 \
@@ -13,9 +15,10 @@ docker run -d -h $(hostname) \
     -p 51413:51413/udp \
     -v ${VOL_DOWNLOADS}:/downloads \
     -v ${VOL_INCOMPLETE_DOWNLOADS}:/incomplete \
-    -v /etc/localtime:/etc/timezone \
-    -e PUID=1000 \
-    -e PGID=1000 \
+    -v ${VOL_MEDIA}:/media \
+    -v /etc/localtime:/etc/timezone:ro \
+    -e PUID=10000 \
+    -e PGID=10000 \
     --name=transmission --restart=always cryptout/transmission
 
   # for troubleshooting run

@@ -1,4 +1,7 @@
+#!/usr/bin/env bats
+
 @test "Opening Transmission on port 9091" {
-  run curl http://localhost:9091
-  [ "${status}" -eq 0 ]
-}
+  run curl -I -s -X GET http://localhost:9091
+  [ "$status" -eq 0 ]
+  [[ $output =~ "HTTP/1.1 200 OK" ]]
+}  

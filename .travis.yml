@@ -6,7 +6,7 @@ services:
 env:
   global:
     - appUser="media"
-    - appGroup="1000"
+    - appGroup="media"
 
 install:
   - docker build --rm --no-cache -t cryptout/transmission ../transmission

@@ -1,17 +1,19 @@
 FROM alpine:latest
 
 MAINTAINER scorputty
-LABEL Description="Transmission" Vendor="Stef Corputty" Version="0.0.1"
+LABEL Description="Transmission" Vendor="Stef Corputty" Version="0.0.2"
 
 # variables
 ENV appUser="media"
-ENV appGroup="1000"
+ENV appGroup="media"
+ENV PUID="10000"
+ENV PGID="10000"
 ENV USERNAME admin
 ENV PASSWORD transmission
 
 
 # mounted volumes should be mapped to media files and config with the run command
-VOLUME ["/incomplete", "/downloads"]
+VOLUME ["/incomplete", "/downloads", "/media"]
 
 # ports should be mapped with the run command to match your situation
 EXPOSE 9091 51413/tcp 51413/udp
@@ -30,7 +32,8 @@ RUN mkdir -p /downloads \
   && mkdir -p /etc/transmission-daemon
 
 # user with access to media files and config
-RUN adduser -D -u ${appGroup} ${appUser}
+RUN addgroup -g ${PGID} ${appGroup} && \
+ adduser -G ${appGroup} -D -u ${PUID} ${appUser}
 
 # set owner
 RUN chown -R ${appUser}:${appGroup} /start.sh /downloads /incomplete /etc/transmission-daemon
