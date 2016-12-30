@@ -3,9 +3,9 @@
 set -e
 
 # if /config doesnt exist, exit
-test -d /incomplete || exit 1
+test -d /incomplete || exit 1 && chown -R media /incomplete
 # same goes for downloads
-test -d /downloads || exit 2
+test -d /downloads || exit 2 && chown -R media /downloads
 
 SETTINGS=/etc/transmission-daemon/settings.json
 

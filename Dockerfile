@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 MAINTAINER scorputty
-LABEL Description="Transmission" Vendor="Stef Corputty" Version="0.0.2"
+LABEL Description="Transmission" Vendor="Stef Corputty" Version="0.0.3"
 
 # variables
 ENV appUser="media"
