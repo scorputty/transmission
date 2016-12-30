@@ -22,12 +22,17 @@ RUN apk add --update \
  transmission-daemon && \
  rm -rf /var/cache/apk/*
 
+# create directories
+RUN mkdir -p /downloads && \
+ mkdir -p /incomplete && \
+ mkdir -p /etc/transmission-daemon
+
 # user with access to media files and config
 RUN addgroup -g ${PGID} ${appGroup} && \
  adduser -G ${appGroup} -D -u ${PUID} ${appUser}
 
 # set owner
-RUN chown -R ${appUser}:${appGroup} /start.sh
+RUN chown -R ${appUser}:${appGroup} /start.sh /downloads /incomplete /etc/transmission-daemon
 
 # permissions
 RUN chmod u+x /start.sh
