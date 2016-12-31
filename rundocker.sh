@@ -14,9 +14,9 @@ docker run -d -h $(hostname) \
     -p 9091:9091 \
     -p 51413:51413 \
     -p 51413:51413/udp \
-    -v ${VOL_DOWNLOADS}:/downloads:shared \
-    -v ${VOL_INCOMPLETE_DOWNLOADS}:/incomplete:shared \
-    -v ${VOL_MEDIA}:/media:shared \
+    -v ${VOL_DOWNLOADS}:/downloads \
+    -v ${VOL_INCOMPLETE_DOWNLOADS}:/incomplete \
+    -v ${VOL_MEDIA}:/media \
     -v /etc/localtime:/etc/timezone:ro \
     -e appUser=media \
     -e appGroup=media \
