@@ -10,13 +10,16 @@ test -d ${VOL_INCOMPLETE_DOWNLOADS} || VOL_INCOMPLETE_DOWNLOADS="${PWD}${VOL_INC
 test -d ${VOL_MEDIA} || VOL_MEDIA="${PWD}${VOL_MEDIA}" && mkdir -p ${VOL_MEDIA}
 
 docker run -d -h $(hostname) \
+    -e USER=media -e USERID=10000 \
     -p 9091:9091 \
     -p 51413:51413 \
     -p 51413:51413/udp \
-    -v ${VOL_DOWNLOADS}:/downloads \
-    -v ${VOL_INCOMPLETE_DOWNLOADS}:/incomplete \
-    -v ${VOL_MEDIA}:/media \
+    -v ${VOL_DOWNLOADS}:/downloads:shared \
+    -v ${VOL_INCOMPLETE_DOWNLOADS}:/incomplete:shared \
+    -v ${VOL_MEDIA}:/media:shared \
     -v /etc/localtime:/etc/timezone:ro \
+    -e appUser=media \
+    -e appGroup=media \
     -e PUID=10000 \
     -e PGID=10000 \
     --name=transmission --restart=always cryptout/transmission

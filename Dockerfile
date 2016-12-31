@@ -18,8 +18,9 @@ EXPOSE 9091 51413/tcp 51413/udp
 COPY src/ .
 
 # install transmission and su-exec (gosu)
-RUN apk add --update \
- su-exec && \
+RUN \
+ apk --update add --no-cache \
+ su-exec \
  transmission-daemon && \
  rm -rf /var/cache/apk/*
 
