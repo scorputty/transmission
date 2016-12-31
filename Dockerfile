@@ -17,8 +17,9 @@ EXPOSE 9091 51413/tcp 51413/udp
 # copy the start script and config to the container
 COPY src/ .
 
-# install transmission
+# install transmission and su-exec (gosu)
 RUN apk add --update \
+ su-exec && \
  transmission-daemon && \
  rm -rf /var/cache/apk/*
 
