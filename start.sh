@@ -2,12 +2,14 @@
 
 set -e
 
-# if /config doesnt exist, exit
-test -d /incomplete || exit 1
-# same goes for downloads
-test -d /downloads || exit 2
+# /share/config maps to nfs share home-server/config
+test -d /share/config/transmission || exit 1
 
-SETTINGS=/etc/transmission-daemon/settings.json
+SETTINGS=/share/config/transmission/settings.json
+
+if [[ ! -f ${SETTINGS} ]]; then
+	cp /tmp/settings.json ${SETTINGS}
+fi
 
 if [[ ! -f ${SETTINGS}.bak ]]; then
 	# Checks for USERNAME variable
@@ -27,4 +29,4 @@ fi
 
 unset PASSWORD USERNAME
 
-exec /usr/bin/transmission-daemon --foreground --config-dir /etc/transmission-daemon
+exec /usr/bin/transmission-daemon --foreground --config-dir /share/config/transmission
