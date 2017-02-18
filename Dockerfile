@@ -1,7 +1,7 @@
-FROM alpine:latest
+FROM alpine:edge
 
 MAINTAINER scorputty
-LABEL Description="Transmission" Vendor="Stef Corputty" Version="0.0.4"
+LABEL Description="Transmission" Vendor="Stef Corputty" Version="0.0.6"
 
 # variables
 ENV appUser="media"
@@ -15,7 +15,10 @@ ENV PASSWORD transmission
 EXPOSE 9091 51413/tcp 51413/udp
 
 # copy the start script and config to the container
-COPY src/ .
+COPY start.sh /start.sh
+
+# copy default settings to /tmp
+COPY settings.json /tmp/settings.json
 
 # install transmission and su-exec (gosu)
 RUN \
@@ -26,23 +29,24 @@ RUN \
  transmission-daemon && \
  rm -rf /var/cache/apk/*
 
-# create directories
-RUN mkdir -p /downloads && \
- mkdir -p /incomplete && \
- mkdir -p /etc/transmission-daemon
-
 # user with access to media files and config
 RUN addgroup -g ${PGID} ${appGroup} && \
  adduser -G ${appGroup} -D -u ${PUID} ${appUser}
 
-# set owner
-RUN chown -R ${appUser}:${appGroup} /start.sh /downloads /incomplete /etc/transmission-daemon
+# create directories
+RUN mkdir -p /share/config/transmission && touch /share/config/transmission/tag.txt
 
-# permissions
-RUN chmod u+x /start.sh
+# set owner
+RUN chown -R ${appUser}:${appGroup} /start.sh /tmp/settings.json /share
+
+# make sure start.sh is executable
+RUN chmod u+x  /start.sh
 
 # switch to user media
 USER ${appUser}
+
+# single mounted shared volume
+VOLUME ["/share"]
 
 # start application
 CMD ["/start.sh"]
