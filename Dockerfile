@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 MAINTAINER scorputty
-LABEL Description="Transmission" Vendor="Stef Corputty" Version="0.0.3"
+LABEL Description="Transmission" Vendor="Stef Corputty" Version="0.0.4"
 
 # variables
 ENV appUser="media"
@@ -21,6 +21,8 @@ COPY src/ .
 RUN \
  apk --update add --no-cache \
  su-exec \
+ curl \
+ transmission-cli \
  transmission-daemon && \
  rm -rf /var/cache/apk/*
 
