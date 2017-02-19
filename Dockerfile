@@ -30,7 +30,7 @@ RUN \
  p7zip \
  tar \
  unrar \
- unzip
+ unzip \
  transmission-cli \
  transmission-daemon && \
  rm -rf /var/cache/apk/*
