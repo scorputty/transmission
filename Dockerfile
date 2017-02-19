@@ -1,7 +1,7 @@
 FROM alpine:edge
 
 MAINTAINER scorputty
-LABEL Description="Transmission" Vendor="Stef Corputty" Version="0.0.7"
+LABEL Description="Transmission" Vendor="Stef Corputty" Version="0.0.8"
 
 # variables
 ENV appUser="media"
@@ -26,8 +26,12 @@ RUN \
  bash \
  su-exec \
  curl \
+ jq \
+ p7zip \
+ tar \
+ unrar \
+ unzip
  transmission-cli \
- transmission-common \
  transmission-daemon && \
  rm -rf /var/cache/apk/*
 
