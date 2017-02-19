@@ -1,7 +1,7 @@
 FROM alpine:edge
 
 MAINTAINER scorputty
-LABEL Description="Transmission" Vendor="Stef Corputty" Version="0.0.6"
+LABEL Description="Transmission" Vendor="Stef Corputty" Version="0.0.7"
 
 # variables
 ENV appUser="media"
@@ -23,9 +23,11 @@ COPY settings.json /tmp/settings.json
 # install transmission and su-exec (gosu)
 RUN \
  apk --update add --no-cache \
+ bash \
  su-exec \
  curl \
  transmission-cli \
+ transmission-common \
  transmission-daemon && \
  rm -rf /var/cache/apk/*
 
