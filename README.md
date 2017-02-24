@@ -2,27 +2,10 @@
 
 # Docker Transmission (Alpine)
 
-This is a Dockerfile to set up "Transmission" - (https://transmissionbt.com/).
+This is a Dockerfile to build "Transmission" - (https://transmissionbt.com/).
 
 ### Docker Hub
 The built image is also hosted at Docker Hub - (https://hub.docker.com/r/cryptout/transmission/).
-If you don't want to customize the container you can run it directly by typing the following commands.
-```sh
-export VOL_DOWNLOADS="/Volumes/shares/docker/data/transmission/downloads"
-export VOL_INCOMPLETE_DOWNLOADS="/Volumes/shares/docker/data/transmission/incomplete"
-export LOCAL_PORT1="9091"
-
-docker run -d -h $(hostname) \
-  -p ${LOCAL_PORT1}:9091 \
-  -p 51413:51413 \
-  -p 51413:51413/udp \
-  -v ${VOL_DOWNLOADS}:/downloads \
-  -v ${VOL_INCOMPLETE_DOWNLOADS}:/incomplete \
-  -v /etc/localtime:/etc/timezone \
-  -e PUID=1000 \
-  -e PGID=1000 \
-  --name=transmission --restart=always cryptout/transmission
-```
 
 # Build from Dockerfile
 Clone this repository and run the build.sh script.
@@ -32,27 +15,6 @@ cd transmission
 ./build.sh
 ```
 
-### Variables
-Change to match your situation.
-```Dockerfile
-ENV appUser="media"
-ENV appGroup="1000"
-```
-
-### Volumes
-Make sure to map the Volumes to match your situation.
-```Dockerfile
-VOLUME ["/downloads"]
-VOLUME ["/etc/transmission-daemon"]
-VOLUME ["/incomplete"]
-```
-
-### To run the container
-Edit rundocker.sh (this will be replaced by docker-compose soon...).
-```sh
-./rundocker.sh
-```
-
 ### WebGUI
 To reach the WebGUI go to - (http://localhost:9091).
 Or replace localhost with your target IP. Login with admin/transmission.
@@ -60,7 +22,6 @@ Or replace localhost with your target IP. Login with admin/transmission.
 ## Info
 * Shell access whilst the container is running: `docker exec -it transmission /bin/sh`
 * To monitor the logs of the container in realtime: `docker logs -f transmission`
-* Change transmission-daemon config: `docker run -ti cryptout/transmission vi /etc/transmission-daemon/settings.json`
 
 # Notes
 I'm still learning Docker and use these private (pet)projects to develop my skills.
