@@ -15,6 +15,24 @@ cd transmission
 ./build.sh
 ```
 
+
+# Docker compose example
+```
+transmission:
+  container_name: transmission
+  image: docker.io/cryptout/transmission
+  hostname: transmission
+  network_mode: host
+  environment:
+    - TZ=Europe/Amsterdam
+    - USER=media
+    - USERID=10000
+    - PUID=10000
+    - PGID=10000
+  volumes:
+    - /share:/share
+```
+
 ### WebGUI
 To reach the WebGUI go to - (http://localhost:9091).
 Or replace localhost with your target IP. Login with admin/transmission.
